@@ -43,12 +43,28 @@ public class TwoSum {
     public static int[] mySolution(int[] nums, int target) {
 
         // Bruteforce -> O(n^2), S(1)
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++ ) {
-                if ( target - nums[i] == nums[j]) {
-                    return new int[] { i, j };
-                }
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int j = i + 1; j < nums.length; j++ ) {
+//                if ( target - nums[i] == nums[j]) {
+//                    return new int[] { i, j };
+//                }
+//            }
+//        }
+//        return null;
+        /**
+         * Update source code from O(n^2) -> O(n)
+         * We need to find data structure can get index from value => HashMap
+         * loop index = 0 -> length
+         *   if ( target - nums[index] ) inside the map
+         *   then return index, map[ (target - nums[index]) ]
+         */
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < nums.length; i++ ) {
+            int last = target - nums[i];
+            if ( null != map.get( last ) ) {
+                return new int[] { i, map.get( last ) };
             }
+            map.put( nums[i], i );
         }
         return null;
     }
